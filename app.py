@@ -1,15 +1,15 @@
-# filename: query_api.py
 from flask import Flask, request, jsonify
 import psycopg2
+import os
 
 app = Flask(__name__)
 
 # Change the following values to match yours
-db_name = "postgres"
-db_user = "user"
-db_password = "passwd"
-db_host = "@IP"
-db_port = "5432"
+db_name = os.getenv("db_name")
+db_user = os.getenv("db_user")
+db_password = os.getenv("db_password")
+db_host = os.getenv("db_host")
+db_port = os.getenv("db_port")
 
 # Establish a connection to the PostgreSQL database
 conn = psycopg2.connect(database=db_name, user=db_user, password=db_password,
@@ -17,10 +17,9 @@ conn = psycopg2.connect(database=db_name, user=db_user, password=db_password,
 cur = conn.cursor()
 
 # Define a route that accepts POST requests to run SQL queries
-@app.route("/query", methods=["POST"])
+@app.route("/query", methods=["GET"])
 def query():
-    query_text = request.json.get("query")
-    cur.execute(query_text)
+    cur.execute("select * from table1")
     result = cur.fetchall()
 
     # Return the result as JSON
