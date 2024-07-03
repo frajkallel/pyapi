@@ -3,3 +3,5 @@ psycopg2
 python-dotenv
 gunicorn
 requests
+azure-storage-blob 
+azure-identity
