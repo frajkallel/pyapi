@@ -34,7 +34,7 @@ def query():
 # Define a route that accepts get requests to list blob
 @app.route("/gfiles", methods=["GET"])
 def gfiles():
-    container = ContainerClient.from_connection_string(conn_str="my_connection_string", container_name="my_container")
+    container = ContainerClient.from_connection_string(conn_str=conn_str, container_name=container_name)
 
     blob_list = container.list_blobs()
 
