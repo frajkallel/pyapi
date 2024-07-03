@@ -37,9 +37,16 @@ def gfiles():
     container = ContainerClient.from_connection_string(conn_str=conn_str, container_name=container_name)
 
     blob_list = container.list_blobs()
+    files = []
+    i = 0
+    for blob in blob_list:
+      files.insert(i+1, blob.name)
 
-    # Return the result as JSON
-    return json.dumps(blob_list)
+    if len(files) == 0:
+      return jsonify()
+    else:
+      # Return the result as JSON
+      return json.dumps(files)
 
 # Run the Flask app on port 8080
 if __name__ == "__main__":
